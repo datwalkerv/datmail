@@ -67,9 +67,10 @@ html[data-dm-theme] form[role='search'] svg {
 /* Nav */
 html[data-dm-theme] .aeN .TO {
   border-radius: 6px !important;
-  /* Gmail's items hug the left edge (it rounds only the right side); inset 8px on both sides, aligned with Compose. */
-  margin-left: 8px !important;
-  margin-right: -8px !important;
+  /* Gmail's items hug the left edge (it rounds only the right side); inset 16px on both sides, aligned with Compose. */
+  margin-left: 16px !important;
+  margin-right: 0 !important;
+  width: auto !important;
   transition: background 120ms ease;
 }
 html[data-dm-theme] .aeN .TO:hover {
@@ -97,15 +98,32 @@ html[data-dm-theme] .aeN .aWk {
   -webkit-text-fill-color: var(--dm-muted) !important;
   font-weight: 500 !important;
 }
-/* Compose button */
+/* Compose: a full-width primary button, aligned with the nav items below it. */
 html[data-dm-theme] .T-I.T-I-KE {
-  background: var(--dm-accent-soft) !important;
-  color: var(--dm-text) !important;
+  box-sizing: border-box;
+  width: calc(100% - 24px) !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  margin: 4px 0 12px 8px !important;
+  padding: 0 12px 0 0 !important;
+  justify-content: flex-start;
+  background: var(--dm-accent) !important;
+  color: var(--dm-on-accent) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.005em;
   border-radius: 8px !important;
   box-shadow: none !important;
+  transition: background-color 120ms ease;
 }
 html[data-dm-theme] .T-I.T-I-KE:hover {
-  background: var(--dm-selected) !important;
+  background: color-mix(in srgb, var(--dm-accent) 86%, var(--dm-bg)) !important;
+}
+html[data-dm-theme] .T-I.T-I-KE::before {
+  width: 42px !important;
+  height: 18px !important;
+  background-size: 18px auto !important;
+  background-position: center !important;
 }
 
 /* Icons are dark PNG sprites from gstatic; invert them in dark mode. */
@@ -600,9 +618,9 @@ html[data-dm-theme] .SK a {
   color: var(--dm-text) !important;
 }
 
-/* Compose button pencil (black sprite in ::before). */
-html[data-dm-theme='dark'] .T-I.T-I-KE::before {
-  filter: var(--dm-icon-filter);
+/* Compose pencil is a black sprite: right on the light dark-mode accent, flipped to white on the blue light-mode accent. */
+html[data-dm-theme='light'] .T-I.T-I-KE::before {
+  filter: invert(1);
 }
 /* Help (?) button in the top bar. */
 html[data-dm-theme] .zo {

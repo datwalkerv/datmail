@@ -1,4 +1,5 @@
 import themeCss from './theme.css?inline';
+import logoSvg from '../../public/icon.svg?raw';
 import barCss from '@/lib/features/bar.css?inline';
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -23,6 +24,7 @@ export default defineContentScript({
     style.id = 'datmail-theme';
     style.textContent = themeCss;
     document.documentElement.append(style); // <head> may not exist yet at document_start
+    document.documentElement.style.setProperty('--dm-logo', `url("data:image/svg+xml,${encodeURIComponent(logoSvg)}")`);
     // Dev builds only: `postMessage('datmail:dev-reload')` from the page reloads the extension.
     if (import.meta.env.DEV) document.documentElement.dataset.dmDevId = browser.runtime.id;
     if (import.meta.env.DEV)

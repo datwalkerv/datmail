@@ -437,10 +437,27 @@ html[data-dm-theme] .brC-aT5-aOt-Jw,
 html[data-dm-theme] .bAw {
   background: var(--dm-bg) !important;
 }
-/* The light-theme logo: invert the wordmark, rotate hue so the M keeps its colors. */
-html[data-dm-theme='dark'] img.gb_bd,
-html[data-dm-theme='dark'] header a[href*='#inbox'] img {
-  filter: invert(1) hue-rotate(180deg);
+/* Replace the Gmail lockup with the datmail mark + wordmark (--dm-logo is set from public/icon.svg). */
+html[data-dm-theme] a:has(> img.gb_bd) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none !important;
+}
+html[data-dm-theme] img.gb_bd {
+  display: none !important;
+}
+html[data-dm-theme] a:has(> img.gb_bd)::before {
+  content: '';
+  width: 28px;
+  height: 28px;
+  background: var(--dm-logo) center / contain no-repeat;
+}
+html[data-dm-theme] a:has(> img.gb_bd)::after {
+  content: 'datmail';
+  color: var(--dm-text);
+  font: 600 20px/1 'Google Sans', Inter, system-ui, sans-serif;
+  letter-spacing: -0.01em;
 }
 html[data-dm-theme] .aeN .CJ,
 html[data-dm-theme] .aeN .n0,

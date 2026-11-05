@@ -294,6 +294,10 @@ html[data-dm-theme] tr.zA[data-dm-cat] > td:first-child {
 html[data-dm-hide-side-panel] .bAw {
   display: none !important;
 }
+/* Without the panel the list card would touch the window edge. */
+html[data-dm-hide-side-panel] .nH.bkK > .nH {
+  margin-right: 16px !important;
+}
 
 /* ---------- Spam hiding (inbox view only) ---------- */
 html[data-dm-view='inbox'] tr.zA[data-dm-spam] {

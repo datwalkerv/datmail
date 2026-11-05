@@ -626,3 +626,8 @@ html[data-dm-theme] .J-M .aH5 {
 html[data-dm-theme='dark'] .aeN .pM {
   filter: var(--dm-icon-filter);
 }
+
+/* Gemini button: its star is several stacked gradient layers, so desaturate the whole wrapper (keeps the shading). */
+html[data-dm-theme] .Zmxtcf {
+  filter: grayscale(1) brightness(1.15);
+}

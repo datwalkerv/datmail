@@ -575,3 +575,12 @@ html[data-dm-theme] .SK .gG .gI {
 html[data-dm-theme] .SK a {
   color: var(--dm-text) !important;
 }
+
+/* Compose button pencil (black sprite in ::before). */
+html[data-dm-theme='dark'] .T-I.T-I-KE::before {
+  filter: var(--dm-icon-filter);
+}
+/* Help (?) button in the top bar. */
+html[data-dm-theme] .zo {
+  display: none !important;
+}

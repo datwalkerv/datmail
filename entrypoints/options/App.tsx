@@ -34,7 +34,7 @@ export function App() {
     <div className="mx-auto flex min-h-screen max-w-4xl gap-12 px-6 py-14 max-sm:flex-col max-sm:gap-6 max-sm:px-4 max-sm:py-8">
       <aside className="w-44 shrink-0">
         <div className="mb-8 flex items-center gap-2 px-2 text-[15px] font-semibold tracking-tight">
-          <span className="size-2 rounded-full bg-accent" /> datmail
+          <img src="/icon.svg" alt="" className="size-6" /> datmail
         </div>
         <nav className="flex flex-col gap-0.5 max-sm:flex-row max-sm:overflow-x-auto">
           {SECTIONS.map((x) => (

@@ -67,6 +67,9 @@ html[data-dm-theme] form[role='search'] svg {
 /* Nav */
 html[data-dm-theme] .aeN .TO {
   border-radius: 6px !important;
+  /* Gmail's items hug the left edge (it rounds only the right side); inset 8px on both sides, aligned with Compose. */
+  margin-left: 8px !important;
+  margin-right: -8px !important;
   transition: background 120ms ease;
 }
 html[data-dm-theme] .aeN .TO:hover {

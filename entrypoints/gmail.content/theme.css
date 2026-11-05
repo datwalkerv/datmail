@@ -232,10 +232,14 @@ html[data-dm-theme] tr.zA.zE > td.PF::after {
   background: var(--dm-accent);
 }
 /* Attachment chips and label chips */
+/* .brd is the strip holding the chips; keep it transparent so row tints show through. */
+html[data-dm-theme] tr.zA .brd {
+  background: transparent !important;
+}
+/* Translucent, so chips pick up a category tint instead of sitting on it as grey blocks. */
 html[data-dm-theme] tr.zA .brc,
-html[data-dm-theme] tr.zA .brd,
 html[data-dm-theme] tr.zA .ar.as .at {
-  background: var(--dm-raised) !important;
+  background: var(--dm-hover) !important;
   border-color: var(--dm-border) !important;
   color: var(--dm-muted) !important;
 }

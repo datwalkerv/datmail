@@ -1,0 +1,573 @@
+@import '../../lib/tokens.css';
+
+/* datmail theme. Everything is scoped under html[data-dm-theme] so the extension is inert until settings load. */
+
+/* Gmail's Material 3 tokens: most components read these with a hard-coded fallback, so defining them at the root recolors them. */
+html[data-dm-theme] {
+  --gm3-sys-color-background: var(--dm-bg);
+  --gm3-sys-color-surface: var(--dm-surface);
+  --gm3-sys-color-surface-container-lowest: var(--dm-surface);
+  --gm3-sys-color-surface-container-low: var(--dm-surface);
+  --gm3-sys-color-surface-container: var(--dm-raised);
+  --gm3-sys-color-surface-container-high: var(--dm-raised);
+  --gm3-sys-color-surface-container-highest: var(--dm-dialog);
+  --gm3-sys-color-surface-variant: var(--dm-raised);
+  --gm3-sys-color-on-background: var(--dm-text);
+  --gm3-sys-color-on-surface: var(--dm-text);
+  --gm3-sys-color-on-surface-rgb: var(--dm-text-rgb);
+  --gm3-sys-color-on-surface-variant: var(--dm-muted);
+  --gm3-sys-color-outline: var(--dm-border-strong);
+  --gm3-sys-color-outline-variant: var(--dm-border);
+  --gm3-sys-color-primary: var(--dm-accent);
+  --gm3-sys-color-on-primary: var(--dm-on-accent);
+  --gm3-sys-color-primary-container: var(--dm-accent-soft);
+  --gm3-sys-color-on-primary-container: var(--dm-text);
+  --gm3-sys-color-secondary-container: var(--dm-selected);
+  --gm3-sys-color-on-secondary-container: var(--dm-text);
+  --gm3-sys-color-inverse-surface: var(--dm-text);
+  --gm3-sys-color-inverse-on-surface: var(--dm-surface);
+}
+
+/* ---------- Shell ---------- */
+html[data-dm-theme] body,
+html[data-dm-theme] .bkK,
+html[data-dm-theme] .aeN,
+html[data-dm-theme] header[role='banner'] {
+  background: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .nH.bkK > .nH,
+html[data-dm-theme] .bkL,
+html[data-dm-theme] .aeF {
+  background: var(--dm-surface) !important;
+}
+html[data-dm-theme] .nH.bkK > .nH {
+  border: 1px solid var(--dm-border);
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] form[role='search'] {
+  background: var(--dm-input) !important;
+  border: 1px solid var(--dm-border);
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] form[role='search'] input {
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] form[role='search'] input::placeholder {
+  color: var(--dm-muted) !important;
+}
+html[data-dm-theme] header svg,
+html[data-dm-theme] form[role='search'] svg {
+  fill: var(--dm-muted);
+  color: var(--dm-muted);
+}
+
+/* Nav */
+html[data-dm-theme] .aeN .TO {
+  border-radius: 6px !important;
+  transition: background 120ms ease;
+}
+html[data-dm-theme] .aeN .TO:hover {
+  background: var(--dm-hover) !important;
+}
+html[data-dm-theme] .aeN .TO.nZ {
+  background: var(--dm-selected) !important;
+}
+html[data-dm-theme] .aeN .TO,
+html[data-dm-theme] .aeN .TO a,
+html[data-dm-theme] .aeN .nU,
+html[data-dm-theme] .aeN .bsU {
+  color: var(--dm-muted) !important;
+}
+html[data-dm-theme] .aeN .TO.nZ a,
+html[data-dm-theme] .aeN .TO.nZ .bsU {
+  color: var(--dm-text) !important;
+  font-weight: 600 !important;
+}
+/* Section headings ("Címkék"). */
+html[data-dm-theme] .aeN h2,
+html[data-dm-theme] .aeN .Ls77Lb,
+html[data-dm-theme] .aeN .aWk {
+  color: var(--dm-muted) !important;
+  -webkit-text-fill-color: var(--dm-muted) !important;
+  font-weight: 500 !important;
+}
+/* Compose button */
+html[data-dm-theme] .T-I.T-I-KE {
+  background: var(--dm-accent-soft) !important;
+  color: var(--dm-text) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] .T-I.T-I-KE:hover {
+  background: var(--dm-selected) !important;
+}
+
+/* Icons are dark PNG sprites from gstatic; invert them in dark mode. */
+html[data-dm-theme='dark'] .qj,
+html[data-dm-theme='dark'] .G-atb .asa,
+html[data-dm-theme='dark'] .G-atb .T-I,
+html[data-dm-theme='dark'] .bq4 .bqX,
+html[data-dm-theme='dark'] .T-KT:not(.T-KT-Jp),
+html[data-dm-theme='dark'] .oZ-jc,
+html[data-dm-theme='dark'] .aT5-aOt-I-JX,
+html[data-dm-theme='dark'] .amH,
+html[data-dm-theme='dark'] .gb_Ec,
+html[data-dm-theme='dark'] .aKS,
+html[data-dm-theme='dark'] .aJ4,
+html[data-dm-theme='dark'] .hA,
+html[data-dm-theme='dark'] .T-I-J3,
+html[data-dm-theme='dark'] .ar6,
+html[data-dm-theme='dark'] .ar8,
+html[data-dm-theme='dark'] .aSK,
+html[data-dm-theme='dark'] .aSJ {
+  filter: var(--dm-icon-filter);
+}
+
+/* ---------- Toolbar ---------- */
+html[data-dm-theme] .G-atb {
+  background: transparent !important;
+  border-bottom: 1px solid var(--dm-border) !important;
+  box-shadow: none !important;
+}
+/* Sticky toolbar paints its scrolled background with ::after. */
+html[data-dm-theme] .G-atb::after {
+  background: var(--dm-surface) !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] .G-atb .T-I:hover {
+  background-color: var(--dm-hover) !important;
+}
+html[data-dm-theme] .Dj,
+html[data-dm-theme] .ar5,
+html[data-dm-theme] .Di {
+  color: var(--dm-muted) !important;
+}
+
+/* Inbox tabs (Primary / Promotions / ...) */
+html[data-dm-theme] [role='tablist'],
+html[data-dm-theme] [role='tab'] {
+  background: transparent !important;
+  border-color: var(--dm-border) !important;
+}
+html[data-dm-theme] [role='tab'] * {
+  color: var(--dm-muted) !important;
+}
+html[data-dm-theme] [role='tab'][aria-selected='true'] * {
+  color: var(--dm-text) !important;
+}
+
+/* ---------- List rows ---------- */
+html[data-dm-theme] table.F,
+html[data-dm-theme] .Cp {
+  background: transparent !important;
+}
+html[data-dm-theme] tr.zA {
+  background: transparent !important;
+  color: var(--dm-muted) !important;
+  box-shadow: inset 0 -1px 0 var(--dm-border) !important;
+  transition: background-color 120ms ease;
+}
+html[data-dm-theme] tr.zA > td {
+  border: 0 !important;
+  background: transparent !important;
+}
+html[data-dm-theme] tr.zA:hover {
+  background: var(--dm-hover) !important;
+  box-shadow: inset 0 -1px 0 var(--dm-border) !important;
+}
+html[data-dm-theme] tr.zA.x7,
+html[data-dm-theme] tr.zA.btb {
+  background: var(--dm-selected) !important;
+}
+/* Sender */
+html[data-dm-theme] tr.zA .yX,
+html[data-dm-theme] tr.zA .yX .yP,
+html[data-dm-theme] tr.zA .yX .zF {
+  color: var(--dm-muted) !important;
+  font-weight: 500 !important;
+}
+/* Subject + snippet */
+html[data-dm-theme] tr.zA .bog {
+  color: var(--dm-text) !important;
+  font-weight: 400 !important;
+}
+html[data-dm-theme] tr.zA .y2 {
+  color: var(--dm-faint) !important;
+}
+/* Date */
+html[data-dm-theme] tr.zA .xW,
+html[data-dm-theme] tr.zA .xW span {
+  color: var(--dm-faint) !important;
+  font-weight: 400 !important;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px !important;
+}
+/* Unread: brighter, sender semibold, a small accent dot. Not shouting. */
+html[data-dm-theme] tr.zA.zE .yX .yP,
+html[data-dm-theme] tr.zA.zE .yX .zF {
+  color: var(--dm-text) !important;
+  font-weight: 600 !important;
+}
+html[data-dm-theme] tr.zA.zE .bog {
+  font-weight: 500 !important;
+}
+html[data-dm-theme] tr.zA.zE .xW span {
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] tr.zA.zE > td.PF {
+  position: relative;
+}
+html[data-dm-theme] tr.zA.zE > td.PF::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--dm-accent);
+}
+/* Attachment chips and label chips */
+html[data-dm-theme] tr.zA .brc,
+html[data-dm-theme] tr.zA .brd,
+html[data-dm-theme] tr.zA .ar.as .at {
+  background: var(--dm-raised) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-muted) !important;
+}
+/* Hover action tray */
+html[data-dm-theme] tr.zA .bq4,
+html[data-dm-theme] tr.zA:hover .bq4 {
+  background: transparent !important;
+}
+
+/* ---------- Row cleanup (toggled by html flags) ---------- */
+html[data-dm-hide-checkbox] tr.zA > td.oZ-x3 {
+  width: 0 !important;
+  max-width: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+html[data-dm-hide-checkbox] tr.zA > td.oZ-x3 > * {
+  display: none !important;
+}
+html[data-dm-hide-checkbox] tr.zA > td.oZ-x3:has([aria-checked='true']) {
+  width: auto !important;
+  max-width: none !important;
+}
+html[data-dm-hide-checkbox] tr.zA > td.oZ-x3:has([aria-checked='true']) > * {
+  display: block !important;
+}
+/* Star: hidden unless starred, or the sender cell / star itself is hovered. */
+html[data-dm-hide-star] tr.zA > td.apU .T-KT:not(.T-KT-Jp) {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+html[data-dm-hide-star] tr.zA > td.apU:hover .T-KT,
+html[data-dm-hide-star] tr.zA > td.apU:has(+ td.WA:hover) .T-KT,
+html[data-dm-hide-star] tr.zA > td.apU:has(~ td.yX:hover) .T-KT {
+  opacity: 1;
+}
+/* Archive (row tray .brq, toolbar act=7) and Snooze (row tray .brv). */
+html[data-dm-hide-actions] tr.zA .bq4 li.brq,
+html[data-dm-hide-actions] tr.zA .bq4 li.brv,
+html[data-dm-hide-actions] .G-atb [act='7'] {
+  display: none !important;
+}
+
+/* ---------- Categories ---------- */
+html[data-dm-theme] tr.zA[data-dm-cat] {
+  background: color-mix(in srgb, var(--dm-cat) 5%, transparent) !important;
+}
+html[data-dm-theme] tr.zA[data-dm-cat]:hover {
+  background: color-mix(in srgb, var(--dm-cat) 9%, transparent) !important;
+}
+html[data-dm-theme] tr.zA[data-dm-cat] > td:first-child {
+  box-shadow: inset 3px 0 0 var(--dm-cat);
+}
+
+/* Right side panel (Calendar, Keep, Tasks, Contacts). The list reflows into the space. */
+html[data-dm-hide-side-panel] .bAw {
+  display: none !important;
+}
+
+/* ---------- Spam hiding (inbox view only) ---------- */
+html[data-dm-view='inbox'] tr.zA[data-dm-spam] {
+  display: none !important;
+}
+
+/* ---------- Reading pane ---------- */
+html[data-dm-theme] .nH.if,
+html[data-dm-theme] .adn,
+html[data-dm-theme] .gs,
+html[data-dm-theme] .h7,
+html[data-dm-theme] .kv,
+html[data-dm-theme] .kQ,
+html[data-dm-theme] .Bk {
+  background: transparent !important;
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .hP {
+  color: var(--dm-text) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+html[data-dm-theme] .gD,
+html[data-dm-theme] .go,
+html[data-dm-theme] .g3,
+html[data-dm-theme] .hb,
+html[data-dm-theme] .iw .gD {
+  color: var(--dm-muted) !important;
+}
+html[data-dm-theme] .gD {
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .h7,
+html[data-dm-theme] .kv,
+html[data-dm-theme] .kQ {
+  border-color: var(--dm-border) !important;
+}
+html[data-dm-theme] .amn .T-I,
+html[data-dm-theme] .ams {
+  background: transparent !important;
+  border: 1px solid var(--dm-border-strong) !important;
+  border-radius: 8px !important;
+  color: var(--dm-text) !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Compose, menus, dialogs, tooltips ---------- */
+html[data-dm-theme] .nH.Hd,
+html[data-dm-theme] .aSs,
+html[data-dm-theme] .aSt,
+html[data-dm-theme] .I5,
+html[data-dm-theme] .aoI,
+html[data-dm-theme] .Am,
+html[data-dm-theme] .aDh,
+html[data-dm-theme] .aDj,
+html[data-dm-theme] .aDg,
+html[data-dm-theme] .gU,
+html[data-dm-theme] .btC,
+html[data-dm-theme] .iN {
+  background: var(--dm-dialog) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+html[data-dm-theme] .nH.Hd {
+  border: 1px solid var(--dm-border-strong);
+  border-radius: 10px 10px 0 0 !important;
+  overflow: hidden;
+}
+html[data-dm-theme] .aYF,
+html[data-dm-theme] .Hp {
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .aoD,
+html[data-dm-theme] .aoT,
+html[data-dm-theme] .agP,
+html[data-dm-theme] .vO {
+  background: transparent !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+html[data-dm-theme] .T-I.aoO {
+  background: var(--dm-accent) !important;
+  color: var(--dm-on-accent) !important;
+  border-radius: 8px !important;
+}
+html[data-dm-theme] .J-M,
+html[data-dm-theme] .J-M.aX0,
+html[data-dm-theme] .Kj-JD,
+html[data-dm-theme] .ZF-Av,
+html[data-dm-theme] [role='menu'],
+html[data-dm-theme] [role='dialog'],
+html[data-dm-theme] [role='listbox'] {
+  background: var(--dm-dialog) !important;
+  color: var(--dm-text) !important;
+  border: 1px solid var(--dm-border-strong) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--dm-shadow) !important;
+}
+html[data-dm-theme] .J-N,
+html[data-dm-theme] .J-N * ,
+html[data-dm-theme] [role='menuitem'] {
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .J-N-JT,
+html[data-dm-theme] .J-N:hover,
+html[data-dm-theme] [role='menuitem']:hover {
+  background: var(--dm-hover) !important;
+}
+html[data-dm-theme] .T-ays,
+html[data-dm-theme] .aLF-aPX-T-ays.T-ays {
+  background: var(--dm-dialog) !important;
+  color: var(--dm-text) !important;
+  border: 1px solid var(--dm-border-strong) !important;
+  border-radius: 6px !important;
+}
+html[data-dm-theme] input,
+html[data-dm-theme] textarea,
+html[data-dm-theme] select {
+  color: var(--dm-text);
+  caret-color: var(--dm-accent);
+}
+
+/* Scrollbars */
+html[data-dm-theme] * {
+  scrollbar-color: var(--dm-border-strong) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-dm-theme] * {
+    transition: none !important;
+  }
+}
+
+/* ---------- Fixes from live review ---------- */
+/* Right add-on rail. */
+html[data-dm-theme] .brC-aT5-aOt-Jw,
+html[data-dm-theme] .bAw {
+  background: var(--dm-bg) !important;
+}
+/* The light-theme logo: invert the wordmark, rotate hue so the M keeps its colors. */
+html[data-dm-theme='dark'] img.gb_bd,
+html[data-dm-theme='dark'] header a[href*='#inbox'] img {
+  filter: invert(1) hue-rotate(180deg);
+}
+html[data-dm-theme] .aeN .CJ,
+html[data-dm-theme] .aeN .n0,
+html[data-dm-theme] .aeN .J-Ke {
+  color: var(--dm-muted) !important;
+}
+
+/* Thread view surfaces. */
+html[data-dm-theme] .wl,
+html[data-dm-theme] .Tm,
+html[data-dm-theme] .aeJ,
+html[data-dm-theme] .nH.a98,
+html[data-dm-theme] .iY,
+html[data-dm-theme] .btDi4d,
+html[data-dm-theme] .nr,
+html[data-dm-theme] .wR {
+  background: var(--dm-surface) !important;
+}
+html[data-dm-theme] .gb_kd {
+  background: var(--dm-bg) !important;
+}
+html[data-dm-theme] .hN,
+html[data-dm-theme] .hO {
+  background: var(--dm-selected) !important;
+  color: var(--dm-muted) !important;
+}
+
+/* Email bodies are author HTML designed for white. Invert them (images re-inverted back) so they sit in the dark UI;
+   contrast(.94) lands white on #080808 instead of pure black. */
+html[data-dm-theme='dark'][data-dm-dark-bodies] .a3s {
+  filter: invert(1) hue-rotate(180deg) contrast(0.94);
+}
+html[data-dm-theme='dark'][data-dm-dark-bodies] .a3s :is(img, video, picture, [style*='background-image'], [background]) {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* "Translate this message" banner and Gmail's toast (.vh). */
+html[data-dm-theme] .eJ9qKc,
+html[data-dm-theme] .vh {
+  background: var(--dm-raised) !important;
+  color: var(--dm-text) !important;
+  border: 1px solid var(--dm-border-strong) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] .eJ9qKc * {
+  color: inherit;
+}
+html[data-dm-theme='dark'] .eJ9qKc :is(img, [role='button']) {
+  filter: var(--dm-icon-filter);
+}
+html[data-dm-theme] .vh .ag,
+html[data-dm-theme] .vh span {
+  color: var(--dm-text) !important;
+}
+
+/* Compose window internals. */
+html[data-dm-theme] .Hd .l.m {
+  background: var(--dm-raised) !important;
+}
+html[data-dm-theme] .Hd :is(.aaZ, .aGb, .qz, .Ap, .Am, .aDh, .aoD, .aoT, .agP) {
+  background: var(--dm-dialog) !important;
+  color: var(--dm-text) !important;
+}
+html[data-dm-theme] .Hd .aYF,
+html[data-dm-theme] .Hd .Hp {
+  color: var(--dm-text) !important;
+}
+/* Send + schedule split button: one solid control. */
+html[data-dm-theme] .Hd :is(.T-I.aoO, .T-I.hG) {
+  background: var(--dm-accent) !important;
+  color: var(--dm-on-accent) !important;
+  box-shadow: none !important;
+}
+html[data-dm-theme] .Hd .T-I.aoO {
+  border-radius: 8px 0 0 8px !important;
+}
+html[data-dm-theme] .Hd .T-I.hG {
+  border-radius: 0 8px 8px 0 !important;
+  border-left: 1px solid color-mix(in srgb, var(--dm-on-accent) 18%, transparent) !important;
+}
+/* The arrow sprite is white (made for the blue button); flip it to sit on the light accent. */
+html[data-dm-theme='dark'] .Hd .T-I.hG > * {
+  filter: invert(1);
+}
+html[data-dm-theme='dark'] .Hd :is(.btA .wG, .J-Z-I, .aaA, .og, .Ha, .Hq, .Hl) {
+  filter: var(--dm-icon-filter);
+}
+
+/* Menu separators. */
+html[data-dm-theme] .J-Kh {
+  border-color: var(--dm-border-strong) !important;
+}
+
+/* Storage meter in the footer. */
+html[data-dm-theme] .aiC {
+  background: var(--dm-selected) !important;
+  border-radius: 3px;
+}
+html[data-dm-theme] .aiA {
+  background: var(--dm-muted) !important;
+  border-radius: 3px;
+}
+html[data-dm-theme] .aiD,
+html[data-dm-theme] .aiD span {
+  color: var(--dm-faint) !important;
+}
+
+/* Collapsed-messages count bubble ("34") in long threads. */
+html[data-dm-theme] .adx {
+  background: var(--dm-raised) !important;
+  color: var(--dm-muted) !important;
+  box-shadow: inset 0 0 0 1px var(--dm-border-strong) !important; /* Gmail draws its ring as an inset shadow */
+}
+/* Black "expand all" icon shown on hover, and the sender-details arrow. */
+html[data-dm-theme='dark'] .adx::before,
+html[data-dm-theme='dark'] .ajz {
+  filter: var(--dm-icon-filter);
+}
+/* Sender details popup (.ajA) and Gmail's other .SK popup cards. */
+html[data-dm-theme] .SK {
+  background: var(--dm-dialog) !important;
+  color: var(--dm-text) !important;
+  border: 1px solid var(--dm-border-strong) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--dm-shadow) !important;
+}
+html[data-dm-theme] .SK .gG,
+html[data-dm-theme] .SK .gG .gI {
+  color: var(--dm-muted) !important;
+}
+html[data-dm-theme] .SK a {
+  color: var(--dm-text) !important;
+}

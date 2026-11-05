@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import '../../lib/tokens.css';
+
+@theme inline {
+  --color-bg: var(--dm-bg);
+  --color-surface: var(--dm-surface);
+  --color-raised: var(--dm-raised);
+  --color-hover: var(--dm-hover);
+  --color-selected: var(--dm-selected);
+  --color-line: var(--dm-border);
+  --color-line-strong: var(--dm-border-strong);
+  --color-fg: var(--dm-text);
+  --color-muted: var(--dm-muted);
+  --color-faint: var(--dm-faint);
+  --color-accent: var(--dm-accent);
+  --color-accent-soft: var(--dm-accent-soft);
+  --color-on-accent: var(--dm-on-accent);
+}
+
+html, body { background: var(--dm-bg); color: var(--dm-text); }
+body { font: 14px/1.5 Inter, system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--dm-accent); outline-offset: 2px; }

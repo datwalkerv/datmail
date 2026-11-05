@@ -9,4 +9,6 @@ export const SEL = {
   snippet: '.y2',
   /** A thread-list container; the datmail bar is inserted before the first visible one. */
   list: '.ae4',
+  /** Right side of the list toolbar (holds the "1–50 of N" counter); verification codes go first in it. */
+  toolbarRight: '.G-atb .Cr',
 } as const;

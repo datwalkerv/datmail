@@ -7,7 +7,7 @@ import { getSettings, watchSettings, type Settings } from '@/lib/settings';
 import { applyCachedTheme, applyFlags } from '@/lib/features/theme';
 import { categoryFor } from '@/lib/features/categories';
 import { barStore, type CodeItem, type FilteredItem } from '@/lib/features/store';
-import { Bar } from '@/lib/features/bar';
+import { Bar, Codes } from '@/lib/features/bar';
 import { isInboxView, parseRow, type Row } from '@/lib/gmail/rows';
 import { SEL } from '@/lib/gmail/selectors';
 import { extractCode } from '@/lib/detect/code';
@@ -33,11 +33,18 @@ export default defineContentScript({
     let settings: Settings = await getSettings();
     applyFlags(settings);
 
-    const host = document.createElement('div');
-    host.id = 'datmail-bar';
-    const shadow = host.attachShadow({ mode: 'open' });
-    shadow.innerHTML = `<style>${barCss}</style><div></div>`;
-    createRoot(shadow.lastElementChild!).render(createElement(Bar));
+    const mount = (id: string, component: () => ReturnType<typeof Bar>) => {
+      const host = document.createElement('div');
+      host.id = id;
+      const shadow = host.attachShadow({ mode: 'open' });
+      shadow.innerHTML = `<style>${barCss}</style><div></div>`;
+      createRoot(shadow.lastElementChild!).render(createElement(component));
+      return host;
+    };
+    const host = mount('datmail-bar', Bar);
+    const codesHost = mount('datmail-codes', Codes);
+    // z-index: Gmail's toolbar paints an ::after layer that otherwise fights the pills for hover (cursor flicker).
+    codesHost.style.cssText = 'display:flex;align-items:center;align-self:center;margin-right:12px;position:relative;z-index:1';
 
     let queued = false;
     const schedule = () => {
@@ -105,6 +112,8 @@ export default defineContentScript({
 
       const anchor = lists[0];
       if (anchor && host.nextElementSibling !== anchor) anchor.before(host);
+      const toolbar = [...document.querySelectorAll<HTMLElement>(SEL.toolbarRight)].find((t) => t.offsetParent);
+      if (toolbar && toolbar.firstElementChild !== codesHost) toolbar.prepend(codesHost);
     }
 
     watchSettings((s) => {

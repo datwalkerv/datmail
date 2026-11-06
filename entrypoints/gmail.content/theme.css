@@ -73,6 +73,14 @@ html[data-dm-theme] .aeN .TO {
   width: auto !important;
   transition: background 120ms ease;
 }
+/* Gmail pads the icon ~26px from the left to suit its edge-hugging pill; match the ~12px the count has on the right. */
+html[data-dm-theme] .aeN .TO .TN {
+  padding-left: 12px !important;
+}
+/* Icon-to-text gap: Gmail's ~20px down to 12px. */
+html[data-dm-theme] .aeN .TO .qj {
+  margin-right: 10px !important;
+}
 html[data-dm-theme] .aeN .TO:hover {
   background: var(--dm-hover) !important;
 }

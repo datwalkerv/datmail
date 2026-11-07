@@ -658,3 +658,40 @@ html[data-dm-theme='dark'] .aeN .pM {
 html[data-dm-theme] .Zmxtcf {
   filter: grayscale(1) brightness(1.15);
 }
+
+/* Collapsed sidebar (.bhZ; .bym = temporarily expanded on hover): 40px squares centered in the 72px rail. */
+html[data-dm-theme] .aeN.bhZ:not(.bym) .TO {
+  width: 40px !important;
+}
+html[data-dm-theme] .aeN.bhZ:not(.bym) .TO .TN {
+  padding: 0 0 0 10px !important;
+}
+html[data-dm-theme] .aeN.bhZ:not(.bym) .T-I.T-I-KE {
+  width: 40px !important;
+  padding: 0 !important;
+  justify-content: center;
+  font-size: 0 !important; /* hides the "Levélírás" label, which otherwise spills out of the square */
+}
+html[data-dm-theme] .aeN.bhZ:not(.bym) .T-I.T-I-KE::before {
+  width: 40px !important;
+}
+
+/* Category search (a datmail chip is active): hide the raw query, Gmail's search chips, term highlights and label tags. */
+html[data-dm-cat-search] form[role='search'] input:not(:focus) {
+  color: transparent !important;
+}
+html[data-dm-cat-search] .G6 {
+  display: none !important;
+}
+/* Search mode (.PY) makes the toolbar 104px tall to fit those chips; back to the inbox height. */
+html[data-dm-cat-search] .G-atb.PY {
+  height: 48px !important;
+  min-height: 0 !important;
+}
+html[data-dm-cat-search] tr.zA .il {
+  background: none !important;
+  color: inherit !important;
+}
+html[data-dm-cat-search] tr.zA .yi {
+  display: none !important;
+}

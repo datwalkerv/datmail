@@ -1,8 +1,8 @@
 import { browser } from 'wxt/browser';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { barStore, type CodeItem } from './store';
-import { searchHash } from './categories';
 import { openThread } from '../gmail/rows';
+import { searchHash } from './categories';
 import { getSettings, saveSettings } from '../settings';
 
 const FRESH_MS = 10 * 60_000;
@@ -58,12 +58,38 @@ export function Codes() {
   );
 }
 
+/**
+ * While a category search is open: keep only rows of that category (Gmail's subject search is broader than our rules)
+ * and flag <html> so theme.css hides the raw query, search chips and highlights.
+ */
+function applyFilter(id: string | null) {
+  let el = document.getElementById('datmail-filter');
+  if (!el) {
+    el = document.createElement('style');
+    el.id = 'datmail-filter';
+    document.documentElement.append(el);
+  }
+  el.textContent = id ? `tr.zA:not([data-dm-cat="${CSS.escape(id)}"]){display:none!important}` : '';
+  id ? document.documentElement.setAttribute('data-dm-cat-search', '') : document.documentElement.removeAttribute('data-dm-cat-search');
+}
+
 export function Bar() {
   const s = useSyncExternalStore(barStore.subscribe, barStore.get);
   const now = useNow();
   const [open, setOpen] = useState(false);
+  const [hash, setHash] = useState(location.hash);
+  useEffect(() => {
+    const on = () => setHash(location.hash);
+    addEventListener('hashchange', on);
+    return () => removeEventListener('hashchange', on);
+  }, []);
+  // The open search decides the active chip, so back/forward and opening an email behave naturally.
+  // Gmail re-encodes the hash after navigating (spaces become '+'), so compare decoded forms.
+  const norm = (h: string) => decodeURIComponent(h.replace(/\+/g, ' '));
+  const active = s.categories.find((c) => norm(hash) === norm(searchHash(c)))?.id ?? null;
+  useEffect(() => applyFilter(active), [active]);
   const filtered = s.inbox ? s.filtered : [];
-  const cats = s.categories.filter((c) => c.senders.length);
+  const cats = s.categories.filter((c) => c.senders.length || c.keywords?.length);
   if (!filtered.length && !cats.length) return null;
 
   const restore = async (email: string) => {
@@ -75,21 +101,21 @@ export function Bar() {
     <div className="bar">
       <div className="strip">
         <nav className="chips" aria-label="Categories">
-          {cats.map((c) => {
-            const active = location.hash === searchHash(c);
-            return (
-              <button
-                key={c.id}
-                className={'chip' + (active ? ' active' : '')}
-                style={{ ['--c' as string]: c.color }}
-                onClick={() => (location.hash = active ? '#inbox' : searchHash(c))}
-              >
-                <span className="dot" />
-                {c.icon && <span>{c.icon}</span>}
-                {c.name}
-              </button>
-            );
-          })}
+          {cats.map((c) => (
+            <button
+              key={c.id}
+              className={'chip' + (active === c.id ? ' active' : '')}
+              style={{ ['--c' as string]: c.color }}
+              aria-pressed={active === c.id}
+              title={`Show all ${c.name} emails`}
+              onClick={() => (location.hash = active === c.id ? '#inbox' : searchHash(c))}
+            >
+              <span className="dot" />
+              {c.icon && <span>{c.icon}</span>}
+              {c.name}
+              <span className="n">{s.counts[c.id] ?? 0}</span>
+            </button>
+          ))}
         </nav>
         {filtered.length > 0 && (
           <button className="pill" aria-expanded={open} onClick={() => setOpen(!open)}>

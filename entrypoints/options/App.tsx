@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { DEFAULTS, getSettings, resetSettings, saveSettings, watchSettings, type Category, type Settings } from '@/lib/settings';
+import { DEFAULTS, MONEY, getSettings, resetSettings, saveSettings, watchSettings, type Category, type Settings } from '@/lib/settings';
 import { applyFlags } from '@/lib/features/theme';
 import { isValidSenderEntry } from '@/lib/detect/match';
 
@@ -9,7 +9,7 @@ type Section = (typeof SECTIONS)[number];
 const SWATCHES = ['#4f8cff', '#3fb68b', '#a879f0', '#f0954a', '#2fc1d3', '#e5677a', '#d8b43c', '#8b8d94'];
 const PRESETS: Omit<Category, 'id' | 'senders'>[] = [
   { name: 'Clients', color: '#4f8cff' },
-  { name: 'Finance', color: '#3fb68b' },
+  MONEY, // default, offered again here if deleted
   { name: 'Personal', color: '#a879f0' },
   { name: 'Important', color: '#f0954a' },
   { name: 'Projects', color: '#2fc1d3' },
@@ -181,19 +181,20 @@ function Segmented<T extends string>({ value, options, onChange }: { value: T; o
 }
 
 /** One sender per line. Saves valid lines on blur; invalid lines are kept in the box and flagged. */
-function SenderList({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
+function SenderList({ value, onChange, keywords }: { value: string[]; onChange: (v: string[]) => void; keywords?: boolean }) {
   const [text, setText] = useState(value.join('\n'));
   useEffect(() => setText(value.join('\n')), [value.join('\n')]);
+  const valid = keywords ? () => true : isValidSenderEntry;
   const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
-  const bad = lines.filter((l) => !isValidSenderEntry(l));
+  const bad = lines.filter((l) => !valid(l));
   return (
     <div className="w-full">
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        onBlur={() => onChange([...new Set(lines.filter(isValidSenderEntry).map((l) => l.toLowerCase()))])}
+        onBlur={() => onChange([...new Set(lines.filter(valid).map((l) => l.toLowerCase()))])}
         rows={Math.min(8, Math.max(3, lines.length + 1))}
-        placeholder={'anna@client.com\n@client.com'}
+        placeholder={keywords ? 'invoice\nszámla' : 'anna@client.com\n@client.com'}
         spellCheck={false}
         className="w-full resize-y rounded-md border border-line-strong bg-bg px-3 py-2 font-mono text-[13px] text-fg placeholder:text-faint focus:border-accent focus:outline-none"
       />
@@ -226,7 +227,7 @@ function Categories({ cats, onChange }: { cats: Category[]; onChange: (c: Catego
 
   return (
     <>
-      <p className="mb-6 text-muted">Emails from these senders get a subtle color accent, and a chip above the inbox that searches all their mail.</p>
+      <p className="mb-6 text-muted">Emails from these senders, or mentioning these keywords, get a subtle color accent, and a chip above the inbox that lists all of them.</p>
       {cats.length === 0 && <div className="mb-6 rounded-lg border border-dashed border-line-strong px-4 py-8 text-center text-muted">No categories yet. Start from a preset below.</div>}
       {cats.length > 0 && (
         <div className="mb-6 divide-y divide-line rounded-lg border border-line bg-surface">
@@ -236,7 +237,8 @@ function Categories({ cats, onChange }: { cats: Category[]; onChange: (c: Catego
                 <span className="size-2.5 rounded-full" style={{ background: c.color }} />
                 {c.icon && <span>{c.icon}</span>}
                 <span className="flex-1 text-fg">{c.name || 'Untitled'}</span>
-                <span className="text-[13px] text-faint">{c.senders.length} sender{c.senders.length === 1 ? '' : 's'}</span>
+                <span className="text-[13px] text-faint">{c.senders.length} sender{c.senders.length === 1 ? '' : 's'}
+                  {c.keywords?.length ? ` · ${c.keywords.length} keyword${c.keywords.length === 1 ? '' : 's'}` : ''}</span>
               </button>
               {editing === c.id && (
                 <div className="space-y-4 border-t border-line bg-bg/40 px-4 py-4">
@@ -272,6 +274,10 @@ function Categories({ cats, onChange }: { cats: Category[]; onChange: (c: Catego
                   <div>
                     <div className="mb-1.5 text-[13px] text-muted">Senders, one per line (address or @domain)</div>
                     <SenderList value={c.senders} onChange={(senders) => update(c.id, { senders })} />
+                  </div>
+                  <div>
+                    <div className="mb-1.5 text-[13px] text-muted">Keywords in the subject or preview, one per line</div>
+                    <SenderList keywords value={c.keywords ?? []} onChange={(keywords) => update(c.id, { keywords })} />
                   </div>
                   <div className="flex justify-end">
                     <button

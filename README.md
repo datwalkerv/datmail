@@ -17,7 +17,7 @@ A Chrome extension that redesigns Gmail in place: calmer, darker, faster to read
 - **🧹 Quieter Rows**: No checkboxes, no Archive or Snooze clutter, and the star only appears when you hover it. Unread mail gets a brighter sender, not a wall of bold.
 - **🔑 Verification Codes**: One-time codes from the last 24 hours appear above the inbox as cards. One click copies the code, the app name opens the email. Fresh codes are highlighted; old ones fade and then disappear.
 - **🛡️ Conservative Filtering**: Loud marketing is moved out of the inbox view into a **Filtered** list you can review. Invoices, receipts, security alerts, account emails and anything with a code are never touched. **Restore** brings a sender back for good.
-- **🏷️ Categories**: Group senders (Clients, Finance, Personal) with a color and an optional emoji. Their emails get a subtle accent, and a chip above the inbox searches all of their mail, not just the loaded page.
+- **🏷️ Categories**: Group mail by sender or keyword (Clients, Personal, and a built-in **Money** for invoices, receipts and payments) with a color and an optional emoji. Their emails get a subtle accent, and a chip above the inbox lists every one of them across your mailbox.
 - **🪟 More Room**: The right-hand side panel (Calendar, Keep, Tasks, Contacts) is hidden by default, and the inbox stretches into the space.
 - **⚙️ Live Settings**: Every change in the settings page applies to open Gmail tabs instantly, no reload.
 - **🇭🇺 Language-Proof**: Nothing depends on Gmail's interface language, so it works the same in Hungarian, English or anything else.

@@ -36,6 +36,7 @@ button:focus-visible { outline: 2px solid var(--dm-accent, #2f6bed); outline-off
 }
 .chip:hover { background: var(--dm-hover, rgba(0,0,0,.03)); color: var(--dm-text); }
 .chip.active { background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--dm-text); }
+.chip .n { font-size: 11px; color: var(--dm-faint, #a0a2a8); font-variant-numeric: tabular-nums; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 .pill {
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; color: var(--dm-muted);

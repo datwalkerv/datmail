@@ -90,15 +90,17 @@ export default defineContentScript({
       const visible = new Set(lists);
       const codes: CodeItem[] = [];
       const filtered: FilteredItem[] = [];
+      const counts: Record<string, number> = {};
 
       for (const el of document.querySelectorAll<HTMLElement>(SEL.row)) {
         const row = parseRow(el);
         if (!row) continue;
-        const cat = categoryFor(settings.categories, row.email);
+        const cat = categoryFor(settings.categories, row);
         setAttr(el, 'data-dm-cat', cat?.id ?? null);
         if (cat) el.style.setProperty('--dm-cat', cat.color);
 
         const onScreen = visible.has(el.closest<HTMLElement>(SEL.list)!);
+        if (cat && onScreen) counts[cat.id] = (counts[cat.id] ?? 0) + 1;
         const recent = row.time !== null && now - row.time < expiry;
         const code = settings.codes && recent ? codeFor(row) : null;
         if (code && onScreen && inbox) codes.push({ threadId: row.threadId, app: row.name || row.email, code, time: row.time! });
@@ -108,7 +110,7 @@ export default defineContentScript({
         if (spam && onScreen) filtered.push({ threadId: row.threadId, email: row.email, name: row.name, subject: row.subject, time: row.time });
       }
 
-      barStore.set({ inbox, codes, filtered, categories: settings.categories });
+      barStore.set({ inbox, codes, filtered, categories: settings.categories, counts });
 
       const anchor = lists[0];
       if (anchor && host.nextElementSibling !== anchor) anchor.before(host);

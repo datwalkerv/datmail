@@ -7,9 +7,11 @@ export interface BarState {
   codes: CodeItem[];
   filtered: FilteredItem[];
   categories: Category[];
+  /** Matching rows per category id on the visible page. */
+  counts: Record<string, number>;
 }
 
-let state: BarState = { inbox: false, codes: [], filtered: [], categories: [] };
+let state: BarState = { inbox: false, codes: [], filtered: [], categories: [], counts: {} };
 let sig = '';
 const subs = new Set<() => void>();
 

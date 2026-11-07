@@ -234,7 +234,7 @@ html[data-dm-theme] tr.zA .xW span {
   font-variant-numeric: tabular-nums;
   font-size: 12px !important;
 }
-/* Unread: brighter, sender semibold, a small accent dot. Not shouting. */
+/* Unread: brighter, sender semibold. Not shouting. */
 html[data-dm-theme] tr.zA.zE .yX .yP,
 html[data-dm-theme] tr.zA.zE .yX .zF {
   color: var(--dm-text) !important;
@@ -246,20 +246,7 @@ html[data-dm-theme] tr.zA.zE .bog {
 html[data-dm-theme] tr.zA.zE .xW span {
   color: var(--dm-text) !important;
 }
-html[data-dm-theme] tr.zA.zE > td.PF {
-  position: relative;
-}
-html[data-dm-theme] tr.zA.zE > td.PF::after {
-  content: '';
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  border-radius: 50%;
-  background: var(--dm-accent);
-}
+
 /* Attachment chips and label chips */
 /* .brd is the strip holding the chips; keep it transparent so row tints show through. */
 html[data-dm-theme] tr.zA .brd {
@@ -295,15 +282,26 @@ html[data-dm-hide-checkbox] tr.zA > td.oZ-x3:has([aria-checked='true']) {
 html[data-dm-hide-checkbox] tr.zA > td.oZ-x3:has([aria-checked='true']) > * {
   display: block !important;
 }
-/* Star: hidden unless starred, or the sender cell / star itself is hovered. */
-html[data-dm-hide-star] tr.zA > td.apU .T-KT:not(.T-KT-Jp) {
-  opacity: 0;
-  transition: opacity 120ms ease;
+/* Star lives on the right: on hover it joins the action tray (star, delete, unread); a starred row keeps it before the date.
+   Rows are flex, so CSS order moves the cell without touching Gmail's DOM. */
+html[data-dm-hide-star] tr.zA > td.apU {
+  display: none !important;
 }
-html[data-dm-hide-star] tr.zA > td.apU:hover .T-KT,
-html[data-dm-hide-star] tr.zA > td.apU:has(+ td.WA:hover) .T-KT,
-html[data-dm-hide-star] tr.zA > td.apU:has(~ td.yX:hover) .T-KT {
-  opacity: 1;
+html[data-dm-hide-star] tr.zA:hover > td.apU,
+html[data-dm-hide-star] tr.zA > td.apU:has(.T-KT-Jp) {
+  display: flex !important;
+  order: 2;
+  justify-content: center;
+  width: 40px !important;
+  padding: 0 !important;
+}
+html[data-dm-hide-star] tr.zA > :is(td.yf, td.xW, td.bq4, td:last-child) {
+  order: 3;
+}
+/* Left inset matches the 16px Gmail keeps after the date / tray on the right. */
+html[data-dm-hide-star] tr.zA > td.PF {
+  width: 16px !important;
+  min-width: 16px !important;
 }
 /* Archive (row tray .brq, toolbar act=7) and Snooze (row tray .brv). */
 html[data-dm-hide-actions] tr.zA .bq4 li.brq,

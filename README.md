@@ -14,7 +14,7 @@ A Chrome extension that redesigns Gmail in place: calmer, darker, faster to read
 
 - **🌑 A Real Dark Mode**: Layered warm neutrals instead of Gmail's mismatched greys. The sidebar, inbox, reading pane, compose window, menus and tooltips all share one palette. Light and system modes too.
 - **📨 Dark Emails**: Messages designed for white backgrounds are shown dark, while photos and logos keep their original colors. One toggle turns it off.
-- **🧹 Quieter Rows**: No checkboxes, no Archive or Snooze clutter, and the star only appears when you hover it. Unread mail gets a small dot and a brighter sender, not a wall of bold.
+- **🧹 Quieter Rows**: No checkboxes, no Archive or Snooze clutter, and the star only appears when you hover it. Unread mail gets a brighter sender, not a wall of bold.
 - **🔑 Verification Codes**: One-time codes from the last 24 hours appear above the inbox as cards. One click copies the code, the app name opens the email. Fresh codes are highlighted; old ones fade and then disappear.
 - **🛡️ Conservative Filtering**: Loud marketing is moved out of the inbox view into a **Filtered** list you can review. Invoices, receipts, security alerts, account emails and anything with a code are never touched. **Restore** brings a sender back for good.
 - **🏷️ Categories**: Group senders (Clients, Finance, Personal) with a color and an optional emoji. Their emails get a subtle accent, and a chip above the inbox searches all of their mail, not just the loaded page.

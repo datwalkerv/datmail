@@ -65,7 +65,7 @@ export function App() {
             <Row label="Hide checkboxes" hint="Select rows with the x key; checkboxes reappear on selected rows.">
               <Toggle on={s.hideCheckbox} onChange={(hideCheckbox) => set({ hideCheckbox })} />
             </Row>
-            <Row label="Show star on hover only" hint="Starred emails always show their star.">
+            <Row label="Move star to the right" hint="Shows next to delete on hover. Starred emails keep their star before the date.">
               <Toggle on={s.hideStar} onChange={(hideStar) => set({ hideStar })} />
             </Row>
             <Row label="Hide Archive and Snooze buttons" hint="Keyboard shortcuts (e, b) still work.">

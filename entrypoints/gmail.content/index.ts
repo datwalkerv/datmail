@@ -13,6 +13,7 @@ import { SEL } from '@/lib/gmail/selectors';
 import { extractCode } from '@/lib/detect/code';
 import { isSpam } from '@/lib/detect/spam';
 import { matchesSender } from '@/lib/detect/match';
+import { KEEP_EVENT, getKeep, isKept } from '@/lib/features/keep';
 
 export default defineContentScript({
   matches: ['https://mail.google.com/*'],
@@ -72,7 +73,7 @@ export default defineContentScript({
       const hit = spamCache.get(row);
       if (hit?.s === settings) return hit.spam;
       const spam = isSpam(row, {
-        strictness: settings.strictness,
+        level: settings.filtering,
         trusted: !!cat || matchesSender(settings.allowlist, row.email),
         blocked: matchesSender(settings.blocklist, row.email),
         hasCode: !!code,
@@ -80,6 +81,9 @@ export default defineContentScript({
       spamCache.set(row, { s: settings, spam });
       return spam;
     }
+
+    let keep = getKeep();
+    addEventListener(KEEP_EVENT, () => ((keep = getKeep()), schedule()));
 
     function scan() {
       const inbox = isInboxView();
@@ -105,7 +109,7 @@ export default defineContentScript({
         const code = settings.codes && recent ? codeFor(row) : null;
         if (code && onScreen && inbox) codes.push({ threadId: row.threadId, app: row.name || row.email, code, time: row.time! });
 
-        const spam = settings.spam && spamFor(row, cat, codeFor(row));
+        const spam = settings.spam && !isKept(keep, row) && spamFor(row, cat, codeFor(row));
         setAttr(el, 'data-dm-spam', spam ? '' : null);
         if (spam && onScreen) filtered.push({ threadId: row.threadId, email: row.email, name: row.name, subject: row.subject, time: row.time });
       }

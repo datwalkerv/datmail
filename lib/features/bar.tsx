@@ -3,7 +3,7 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import { barStore, type CodeItem } from './store';
 import { openThread } from '../gmail/rows';
 import { searchHash } from './categories';
-import { getSettings, saveSettings } from '../settings';
+import { addKeep } from './keep';
 
 const FRESH_MS = 10 * 60_000;
 
@@ -92,10 +92,6 @@ export function Bar() {
   const cats = s.categories.filter((c) => c.senders.length || c.keywords?.length);
   if (!filtered.length && !cats.length) return null;
 
-  const restore = async (email: string) => {
-    const { allowlist } = await getSettings();
-    await saveSettings({ allowlist: [...new Set([...allowlist, email])] });
-  };
 
   return (
     <div className="bar">
@@ -134,7 +130,10 @@ export function Bar() {
               <span className="subj">{f.subject}</span>
               <span className="time">{f.time ? ago(f.time, now) : ''}</span>
               <button onClick={() => openThread(f.threadId)}>Open</button>
-              <button className="primary" onClick={() => restore(f.email)}>Restore</button>
+              <button onClick={() => addKeep('threads', f.threadId)} title="Bring back just this email">Restore</button>
+              <button className="primary" onClick={() => addKeep('senders', f.email)} title={`Never filter ${f.email}`}>
+                Don't filter sender
+              </button>
             </li>
           ))}
         </ul>

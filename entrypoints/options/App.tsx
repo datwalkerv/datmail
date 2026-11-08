@@ -91,13 +91,13 @@ export function App() {
               </Row>
             </Group>
             <Group title="Filtering">
-              <Row label="Hide promotional noise" hint="Hidden from the inbox view only. Nothing is deleted or moved.">
+              <Row label="Filter the inbox" hint="Hidden from the inbox view only, listed under Filtered. Nothing is deleted or moved.">
                 <Toggle on={s.spam} onChange={(spam) => set({ spam })} />
               </Row>
-              <Row label="Strictness" hint="Conservative only hides obvious marketing. Invoices, receipts, security and account emails are never hidden.">
-                <Segmented value={s.strictness} options={['conservative', 'balanced']} onChange={(strictness) => set({ strictness })} />
+              <Row label="Strictness" hint="Strict hides all automated mail (notifications, newsletters, social). Light only hides loud marketing. People, invoices, payments, security alerts, codes and your categories are never hidden.">
+                <Segmented value={s.filtering} options={['light', 'balanced', 'strict']} onChange={(filtering) => set({ filtering })} />
               </Row>
-              <ListRow label="Never filter" hint="Addresses or @domain, one per line. Restore adds senders here." value={s.allowlist} onChange={(allowlist) => set({ allowlist })} />
+              <ListRow label="Never filter" hint="Addresses or @domain, one per line." value={s.allowlist} onChange={(allowlist) => set({ allowlist })} />
               <ListRow label="Always filter" value={s.blocklist} onChange={(blocklist) => set({ blocklist })} />
             </Group>
           </>

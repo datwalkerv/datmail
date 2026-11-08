@@ -23,7 +23,8 @@ export interface Settings {
   codes: boolean;
   codeExpiryHours: number;
   spam: boolean;
-  strictness: 'conservative' | 'balanced';
+  /** Replaces the old `strictness` key, so existing users move to the new strict default. */
+  filtering: 'light' | 'balanced' | 'strict';
   allowlist: string[];
   blocklist: string[];
   categories: Category[];
@@ -55,7 +56,7 @@ export const DEFAULTS: Settings = {
   codes: true,
   codeExpiryHours: 24,
   spam: true,
-  strictness: 'conservative',
+  filtering: 'strict',
   allowlist: [],
   blocklist: [],
   categories: [MONEY],

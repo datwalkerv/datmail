@@ -9,14 +9,15 @@ export interface SpamInput {
 
 // Anything that looks like it matters to the user is never filtered.
 const TRANSACTIONAL =
-  /invoice|receipt|payment|paid|refund|statement|your order|order (?:#|no|number|confirm|shipped|status)|shipp(?:ed|ing)|deliver|tracking|password|security|verif|sign[- ]?in|log[- ]?in|account|booking|reservation|ticket|appointment|contract|számla|nyugta|fizet|befizet|visszatérít|rendelés|(?<!ingyenes )szállít|kézbesít|csomag|jelszó|biztonsági|fiók|bejelentkez|foglalás|időpont|szerződés|ajánlatkérés/i;
+  /invoice|receipt|payment|paid|refund|money (?:added|received|sent)|cashback|statement|your order|order (?:#|no|number|confirm|shipped|status)|shipp(?:ed|ing)|deliver|tracking|parcel|package|\bawb\b|livr|colet|password|security|verif|authenticat|one[- ]time|\botp\b|passcode|(?:login|sign[- ]?in|access|security) code|new (?:log[- ]?in|sign[- ]?in)|(?:log[- ]?in|sign[- ]?in) (?:from|attempt|alert|link|code)|sign[- ]?in to|secure link|magic link|account (?:suspend|lock|disabl|recover|verif)\w*|suspend|booking|reservation|ticket|appointment|contract|számla|nyugta|fizet|befizet|visszatérít|rendelés|(?<!ingyenes )szállít|kézbesít|csomag|jelszó|biztonsági|fiók|bejelentkez|foglalás|időpont|szerződés|ajánlatkérés/i;
 
 const PROMO_SENDER = /^(?:newsletter|news|marketing|promo(?:tions?)?|offers?|deals?|sales?|campaigns?|mailer|hirlevel|hírlevél|akcio)\b/i;
 const NOREPLY_SENDER = /^(?:no-?reply|do-?not-?reply|info|hello|hi|team)\b/i;
 const ESP_DOMAIN =
-  /(?:mailchimp|mcsv\.net|mcdlv\.net|sendgrid|klaviyo|mailerlite|sendinblue|brevo|hubspot|exacttarget|rsgsv|cmail\d*|createsend|emarsys|salesforce|mktomail|substack)\.|^(?:e|em\d*|email|mail|news|newsletter|info|marketing|promo|m|t)\./i;
+  /(?:mailchimp|mcsv\.net|mcdlv\.net|sendgrid|klaviyo|mailerlite|sendinblue|brevo|hubspot|exacttarget|rsgsv|cmail\d*|createsend|emarsys|salesforce|mktomail|substack)\.|^(?:e|em\d*|email|mail|mailing|news|newsletter|info|marketing|mkt|mktg|promo|engage|m|t)\./i;
 
 const PROMO_PHRASES: RegExp[] = [
+  /\b(?:webinar|masterclass|podcast|livestream|going live|join us|register now|save your seat)\b|élő adás|webinár/i,
   /\d{1,2}\s?%/,
   /% off|\boff\b.*\btoday\b/i,
   /\bsale\b|\bdiscount|\bcoupon|promo code|\bdeals?\b/i,
@@ -44,10 +45,19 @@ const capsRatio = (s: string) => {
   return words.length < 3 ? 0 : words.filter((w) => w === w.toUpperCase()).length / words.length;
 };
 
-export const THRESHOLD = { conservative: 0.75, balanced: 0.55 } as const;
+// Senders that are machines, not people: noreply/notification/newsletter style local parts.
+const AUTOMATED_SENDER =
+  /no-?reply|do-?not-?reply|^(?:notifications?|notify|alerts?|updates?|news|newsletters?|digest|info|hello|hi|team|marketing|promo\w*|offers?|deals?|mailer|community|bounces?|contact|support|editorial)\b/i;
+
+/** Looks machine-sent: automated sender, mailing-service domain, or any promo wording. */
+export const isAutomated = (row: SpamInput) =>
+  AUTOMATED_SENDER.test(row.email.split('@')[0] ?? '') || ESP_DOMAIN.test(row.email.split('@')[1] ?? '') || spamScore(row) >= 0.25;
+
+export type FilterLevel = 'light' | 'balanced' | 'strict';
+const THRESHOLD = { light: 0.75, balanced: 0.55 } as const;
 
 export interface SpamContext {
-  strictness: keyof typeof THRESHOLD;
+  level: FilterLevel;
   /** Sender is allowlisted or belongs to a category. */
   trusted: boolean;
   blocked: boolean;
@@ -58,5 +68,5 @@ export function isSpam(row: SpamInput, ctx: SpamContext): boolean {
   if (ctx.blocked) return true;
   if (ctx.trusted || ctx.hasCode || !row.email) return false;
   if (TRANSACTIONAL.test(`${row.subject} ${row.snippet}`)) return false;
-  return spamScore(row) >= THRESHOLD[ctx.strictness];
+  return ctx.level === 'strict' ? isAutomated(row) : spamScore(row) >= THRESHOLD[ctx.level];
 }

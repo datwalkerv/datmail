@@ -7,9 +7,9 @@ export interface SpamInput {
   snippet: string;
 }
 
-// Anything that looks like it matters to the user is never filtered.
+// Anything that looks like it matters to the user is never filtered. Includes a real person reaching out via a platform.
 const TRANSACTIONAL =
-  /invoice|receipt|payment|paid|refund|money (?:added|received|sent)|cashback|statement|your order|order (?:#|no|number|confirm|shipped|status)|shipp(?:ed|ing)|deliver|tracking|parcel|package|\bawb\b|livr|colet|password|security|verif|authenticat|one[- ]time|\botp\b|passcode|(?:login|sign[- ]?in|access|security) code|new (?:log[- ]?in|sign[- ]?in)|(?:log[- ]?in|sign[- ]?in) (?:from|attempt|alert|link|code)|sign[- ]?in to|secure link|magic link|account (?:suspend|lock|disabl|recover|verif)\w*|suspend|booking|reservation|ticket|appointment|contract|számla|nyugta|fizet|befizet|visszatérít|rendelés|(?<!ingyenes )szállít|kézbesít|csomag|jelszó|biztonsági|fiók|bejelentkez|foglalás|időpont|szerződés|ajánlatkérés/i;
+  /sent you a (?:new |direct |private )?message|sent you a dm|new (?:direct |private )?message from|messaged you|mentioned you|replied to (?:you|your)|üzenetet küldött|új üzenet|megemlített|válaszolt|invoice|receipt|payment|paid|refund|money (?:added|received|sent)|cashback|statement|your order|order (?:#|no|number|confirm|shipped|status)|shipp(?:ed|ing)|deliver|tracking|parcel|package|\bawb\b|livr|colet|password|security|verif|authenticat|one[- ]time|\botp\b|passcode|(?:login|sign[- ]?in|access|security) code|new (?:log[- ]?in|sign[- ]?in)|(?:log[- ]?in|sign[- ]?in) (?:from|attempt|alert|link|code)|sign[- ]?in to|secure link|magic link|account (?:suspend|lock|disabl|recover|verif)\w*|suspend|booking|reservation|ticket|appointment|contract|számla|nyugta|fizet|befizet|visszatérít|rendelés|(?<!ingyenes )szállít|kézbesít|csomag|jelszó|biztonsági|fiók|bejelentkez|foglalás|időpont|szerződés|ajánlatkérés/i;
 
 const PROMO_SENDER = /^(?:newsletter|news|marketing|promo(?:tions?)?|offers?|deals?|sales?|campaigns?|mailer|hirlevel|hírlevél|akcio)\b/i;
 const NOREPLY_SENDER = /^(?:no-?reply|do-?not-?reply|info|hello|hi|team)\b/i;

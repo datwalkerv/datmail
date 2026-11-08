@@ -65,6 +65,9 @@ describe('isSpam (strict: hide all automated mail)', () => {
     row('no-reply@service.example.ro', 'Login from new IP address 2001:db8::1', 'We detected'),
     row('noreply@courier.example.ro', 'Azi îți livrăm coletul cu AWB 1234567890123!', 'Vezi PIN-ul și alte informații'),
     row('no-reply@service.example.com', 'Authentication code received', 'Your code is ready'),
+    row('notification@chat.example.com', 'Anna Kovács sent you a message', 'You have a new direct message in Example Workspace'),
+    row('messages-noreply@social.example.com', 'Péter üzenetet küldött Önnek', 'Válaszoljon most'),
+    row('no-reply@chat.example.com', 'Peter mentioned you in #general', 'Can you check this?'),
   ])('keeps people, money, deliveries and security %#', (r) => expect(isSpam(r, strict)).toBe(false));
 
   it('keeps codes even from noreply', () => {
